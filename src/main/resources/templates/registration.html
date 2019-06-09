@@ -1,0 +1,120 @@
+<!doctype html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Sign up</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+<div th:if="${message}">
+    <div class="alert alert-danger text-center" role="alert" th:text="${message}">
+    </div>
+</div>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">Register</div>
+                <div class="card-body">
+                    <form class="form-horizontal" method="post" action="/registration">
+                        <div class="form-group">
+                            <label for="firstName" class="cols-sm-2 control-label">
+                                First name
+                            </label>
+                            <div class="cols-sm-10">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-user fa"
+                                                                       aria-hidden="true"></i></span>
+                                    <input type="text" class="form-control" name="firstName" id="firstName"
+                                           placeholder="Enter first name">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="lastName" class="cols-sm-2 control-label">
+                                Last name
+                            </label>
+                            <div class="cols-sm-10">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-user fa"
+                                                                       aria-hidden="true"></i></span>
+                                </div>
+                                <input type="text" class="form-control" name="lastName" id="lastName"
+                                       placeholder="Enter last name here"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="email" class="cols-sm-2 control-label">
+                                Username
+                            </label>
+                            <div class="cols-sm-10">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>
+                                    <input type="text" class="form-control" name="username" id="email"
+                                           placeholder="Enter username here"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="password" class="cols-sm-2 control-label">
+                                Password
+                            </label>
+                            <div class="cols-sm-10">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
+                                    <input type="password" class="form-control" name="password" id="password"
+                                           placeholder="Enter password here"
+                                           minlength="4"
+                                           oninput="checkPasswordsSame()"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="passwordConfirmation" class="cols-sm-2 control-label">
+                                Confirm password
+                            </label>
+                            <div class="cols-sm-10">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
+                                    <input type="password" class="form-control" id="passwordConfirmation"
+                                           placeholder="Repeat your password" oninput="checkPasswordsSame()"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group ">
+                            <input type="submit" class="btn btn-primary btn-lg btn-block login-button"
+                                   value="Register" id="submitButton"/>
+                        </div>
+                        <div class="alert alert-danger" role="alert" id="passwordConfirmationFailedAlert"
+                             style="display: none">
+                            Passwords are not same
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    function checkPasswordsSame() {
+        var passwordInput = document.getElementById('password');
+        var passwordConfirmationInput = document.getElementById('passwordConfirmation');
+        var submitButton = document.getElementById('submitButton');
+        var alertLabel = document.getElementById('passwordConfirmationFailedAlert');
+        if (passwordInput.value !== passwordConfirmationInput.value) {
+            submitButton.disabled = true;
+            alertLabel.style.display = 'block';
+        } else {
+            submitButton.disabled = false;
+            alertLabel.style.display = 'none';
+
+        }
+    }
+</script>
+</body>
+</html>

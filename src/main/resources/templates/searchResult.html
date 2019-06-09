@@ -1,0 +1,84 @@
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <style type="text/css">
+        .checked {
+            color: orange;
+        }
+    </style>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous"></script>
+    <title>Search results</title>
+</head>
+<body style="background-color: #F8F9FA;" onload="setStarsAmount();">
+
+<div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
+    <a class="navbar-brand my-0 mr-md-auto font-weight-normal" href="/">Hotello</a>
+    <nav class="my-2 my-md-0 mr-md-3">
+        <a class="p-2 text-dark" href="#">Booking conditions</a>
+        <a class="p-2 text-dark" href="#">Payment</a>
+        <a class="p-2 text-dark" href="#">Support</a>
+        <a class="p-2 text-dark" href="#">About us</a>
+    </nav>
+    <div class="btn-group dropleft">
+        <button class="btn btn-outline-primary" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
+            <img src="https://i.ibb.co/bsvvyGB/ezgif-com-gif-maker.png" alt="user_logo" width="25">
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+
+            <a class="dropdown-item" href="/orders">
+                Orders
+            </a>
+            <form th:action="@{/logout}" method="post">
+                <button class="dropdown-item" type="submit">
+                    Logout
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<main role="main">
+    <section class="jumbotron text-center">
+    </section>
+    <div class="album py-5 bg-light">
+        <div class="container">
+            <div class="row" th:each="apart : ${apartments}">
+                <div class="col-md-4">
+                    <div class="card mb-4 shadow-sm">
+                        <img src="https://i.ibb.co/j47yfvM/hotel-sketch.jpg" alt="Apartment" width="100%"
+                             height="225">
+                        <div class="card-body">
+                            <p class="card-text" th:text="${apart.title}"></p>
+                            <span class="card-text">Places amount:</span><span th:text="${apart.placesAmount}"></span>
+                            <br>
+                            <span class="card-text">Rooms amount:</span><span th:text="${apart.roomsAmount}"></span><br>
+                            <span class="card-title pricing-card-title" th:text="${apart.pricePerDay / 100}"></span>
+                            <span>$/ day</span><br>
+                            <form action="/order" method="post">
+                                <input type="text" name="apartmentId" th:value="${apart.id}" hidden>
+                                <input type="text" name="checkInDate" th:value="${param.checkIn}" hidden>
+                                <input type="text" name="checkOutDate" th:value="${param.checkOut}" hidden>
+                                <button class="btn btn-sm btn-outline-secondary">Order</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+</body>
+</html>
